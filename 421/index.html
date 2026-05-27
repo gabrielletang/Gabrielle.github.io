@@ -1,0 +1,736 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Jiawen Tang & Friend | Personal Pages</title>
+    <style>
+      :root {
+        color-scheme: light;
+        --ink: #151515;
+        --muted: #6c6c68;
+        --fine: #dedbd3;
+        --soft: #f7f6f2;
+        --paper: #fffdf8;
+        --accent: #8e6f3e;
+        --deep: #26332e;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      html {
+        scroll-behavior: smooth;
+      }
+
+      body {
+        margin: 0;
+        min-width: 320px;
+        background: var(--paper);
+        color: var(--ink);
+        font-family: "Inter", "Helvetica Neue", Arial, "PingFang SC", "Microsoft YaHei", sans-serif;
+        line-height: 1.6;
+      }
+
+      a {
+        color: inherit;
+        text-decoration: none;
+      }
+
+      .shell {
+        width: min(1480px, calc(100% - 48px));
+        margin: 0 auto;
+      }
+
+      .topbar {
+        position: sticky;
+        top: 0;
+        z-index: 5;
+        background: rgba(255, 253, 248, 0.92);
+        border-bottom: 1px solid var(--fine);
+        backdrop-filter: blur(18px);
+      }
+
+      .topbar-inner {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        min-height: 72px;
+        gap: 24px;
+      }
+
+      .brand {
+        display: flex;
+        align-items: baseline;
+        gap: 12px;
+        white-space: nowrap;
+      }
+
+      .brand strong {
+        font-family: Georgia, "Times New Roman", serif;
+        font-size: 22px;
+        font-weight: 500;
+      }
+
+      .brand span,
+      nav a {
+        color: var(--muted);
+        font-size: 13px;
+        letter-spacing: 0.04em;
+        text-transform: uppercase;
+      }
+
+      nav {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: flex-end;
+        gap: 16px;
+      }
+
+      nav a {
+        padding: 6px 0;
+        border-bottom: 1px solid transparent;
+      }
+
+      nav a:hover {
+        border-color: var(--ink);
+        color: var(--ink);
+      }
+
+      .hero {
+        padding: 76px 0 44px;
+        border-bottom: 1px solid var(--fine);
+      }
+
+      .kicker {
+        margin: 0 0 20px;
+        color: var(--accent);
+        font-size: 12px;
+        font-weight: 700;
+        letter-spacing: 0.16em;
+        text-transform: uppercase;
+      }
+
+      h1 {
+        max-width: 980px;
+        margin: 0;
+        font-family: Georgia, "Times New Roman", serif;
+        font-size: clamp(48px, 7vw, 104px);
+        font-weight: 500;
+        line-height: 0.95;
+      }
+
+      .hero-note {
+        display: grid;
+        grid-template-columns: minmax(220px, 0.42fr) minmax(280px, 0.58fr);
+        gap: 48px;
+        align-items: end;
+        margin-top: 42px;
+      }
+
+      .hero-note p {
+        margin: 0;
+        color: var(--muted);
+        font-size: 16px;
+      }
+
+      .meta-row {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+        margin-top: 22px;
+      }
+
+      .meta-row span {
+        border: 1px solid var(--fine);
+        padding: 7px 10px;
+        color: var(--deep);
+        font-size: 13px;
+        background: #fffaf0;
+      }
+
+      .profiles {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        min-height: 70vh;
+      }
+
+      .profile {
+        padding: 56px 44px 72px;
+      }
+
+      .profile:first-child {
+        border-right: 1px solid var(--fine);
+        padding-left: 0;
+      }
+
+      .profile:last-child {
+        padding-right: 0;
+      }
+
+      .profile-head {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) auto;
+        gap: 20px;
+        align-items: start;
+        padding-bottom: 28px;
+        border-bottom: 1px solid var(--fine);
+      }
+
+      .profile h2 {
+        margin: 0;
+        font-family: Georgia, "Times New Roman", serif;
+        font-size: clamp(34px, 4vw, 58px);
+        font-weight: 500;
+        line-height: 1;
+      }
+
+      .role {
+        margin: 12px 0 0;
+        color: var(--muted);
+        font-size: 14px;
+      }
+
+      .status {
+        min-width: 96px;
+        border: 1px solid var(--fine);
+        padding: 8px 10px;
+        color: var(--deep);
+        font-size: 12px;
+        text-align: center;
+        text-transform: uppercase;
+        letter-spacing: 0.12em;
+      }
+
+      .content-block {
+        padding: 32px 0;
+        border-bottom: 1px solid var(--fine);
+      }
+
+      .content-block:last-child {
+        border-bottom: 0;
+      }
+
+      .section-label {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 18px;
+        margin-bottom: 18px;
+      }
+
+      .section-label h3 {
+        margin: 0;
+        color: var(--deep);
+        font-size: 12px;
+        font-weight: 800;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+      }
+
+      .section-label span {
+        color: var(--muted);
+        font-size: 12px;
+      }
+
+      .lede {
+        margin: 0;
+        color: #2d2d2a;
+        font-size: clamp(18px, 2vw, 23px);
+        line-height: 1.45;
+      }
+
+      .timeline {
+        display: grid;
+        gap: 24px;
+      }
+
+      .item {
+        display: grid;
+        gap: 8px;
+      }
+
+      .item-header {
+        display: flex;
+        align-items: baseline;
+        justify-content: space-between;
+        gap: 18px;
+      }
+
+      .item h4 {
+        margin: 0;
+        color: var(--ink);
+        font-size: 18px;
+        font-weight: 700;
+      }
+
+      .item time {
+        color: var(--muted);
+        font-size: 13px;
+        white-space: nowrap;
+      }
+
+      .item p {
+        margin: 0;
+        color: var(--muted);
+        font-size: 14px;
+      }
+
+      ul {
+        margin: 10px 0 0;
+        padding-left: 18px;
+      }
+
+      li {
+        margin: 8px 0;
+        color: #343431;
+        font-size: 14px;
+      }
+
+      .skills {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+      }
+
+      .skills span {
+        border: 1px solid var(--fine);
+        background: var(--soft);
+        padding: 7px 10px;
+        color: var(--deep);
+        font-size: 13px;
+      }
+
+      .placeholder {
+        min-height: 180px;
+        border: 1px dashed #c9c3b7;
+        background: #fbfaf5;
+        padding: 24px;
+        display: grid;
+        align-content: center;
+        gap: 10px;
+      }
+
+      .placeholder strong {
+        font-family: Georgia, "Times New Roman", serif;
+        font-size: 24px;
+        font-weight: 500;
+      }
+
+      .placeholder p {
+        margin: 0;
+        color: var(--muted);
+        font-size: 14px;
+      }
+
+      .journal-grid {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 14px;
+      }
+
+      .journal-slot {
+        border-top: 1px solid var(--fine);
+        padding-top: 16px;
+      }
+
+      .journal-slot strong {
+        display: block;
+        margin-bottom: 6px;
+        font-size: 16px;
+      }
+
+      .journal-slot p {
+        margin: 0;
+        color: var(--muted);
+        font-size: 13px;
+      }
+
+      footer {
+        border-top: 1px solid var(--fine);
+        padding: 34px 0 44px;
+        color: var(--muted);
+        font-size: 13px;
+      }
+
+      @media (max-width: 980px) {
+        .shell {
+          width: min(100% - 32px, 760px);
+        }
+
+        .topbar-inner,
+        .hero-note {
+          grid-template-columns: 1fr;
+        }
+
+        .topbar-inner {
+          align-items: flex-start;
+          flex-direction: column;
+          padding: 16px 0;
+        }
+
+        nav {
+          justify-content: flex-start;
+        }
+
+        .profiles {
+          grid-template-columns: 1fr;
+        }
+
+        .profile {
+          padding: 42px 0 54px;
+        }
+
+        .profile:first-child {
+          border-right: 0;
+          border-bottom: 1px solid var(--fine);
+        }
+      }
+
+      @media (max-width: 620px) {
+        .shell {
+          width: min(100% - 24px, 520px);
+        }
+
+        .hero {
+          padding-top: 54px;
+        }
+
+        .brand {
+          flex-wrap: wrap;
+        }
+
+        .profile-head,
+        .item-header,
+        .journal-grid {
+          grid-template-columns: 1fr;
+        }
+
+        .profile-head,
+        .item-header {
+          display: grid;
+        }
+
+        .status {
+          width: fit-content;
+        }
+
+        .item time {
+          white-space: normal;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <header class="topbar">
+      <div class="shell topbar-inner">
+        <a class="brand" href="#top" aria-label="Back to top">
+          <strong>Jiawen & Friend</strong>
+          <span>Personal Pages</span>
+        </a>
+        <nav aria-label="Primary">
+          <a href="#jiawen">Jiawen</a>
+          <a href="#friend">Friend</a>
+          <a href="#jiawen-blog">Blog</a>
+          <a href="#jiawen-vlog">Vlog</a>
+        </nav>
+      </div>
+    </header>
+
+    <main id="top">
+      <section class="shell hero" aria-labelledby="page-title">
+        <p class="kicker">Dual Portfolio / Minimal Editorial Layout</p>
+        <h1 id="page-title">Two personal archives, one quiet shared frame.</h1>
+        <div class="hero-note">
+          <p>为两份简历预留同等视觉权重：左侧已根据 Jiawen 的简历整理，右侧等待朋友简历传来后填入。简介区域不使用图片。</p>
+          <div>
+            <p>结构保持个人内容下级：个人简介、教育与经历、项目、Blog、Vlog。后续新增文章或视频时，只需要在对应个人栏下扩展。</p>
+            <div class="meta-row" aria-label="Page qualities">
+              <span>No Portraits</span>
+              <span>Two Columns</span>
+              <span>Blog Ready</span>
+              <span>Vlog Ready</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="shell profiles" aria-label="Personal profiles">
+        <article class="profile" id="jiawen">
+          <header class="profile-head">
+            <div>
+              <h2>Jiawen Tang</h2>
+              <p class="role">Applied Statistics & Data Science · Finance · Analytics</p>
+            </div>
+            <span class="status">Active</span>
+          </header>
+
+          <section class="content-block" aria-labelledby="jiawen-profile">
+            <div class="section-label">
+              <h3 id="jiawen-profile">Profile</h3>
+              <span>01</span>
+            </div>
+            <p class="lede">A finance and data analytics professional combining investment banking, assurance, startup operations, and applied statistical modeling to turn complex business questions into structured decisions.</p>
+          </section>
+
+          <section class="content-block" aria-labelledby="jiawen-education">
+            <div class="section-label">
+              <h3 id="jiawen-education">Education</h3>
+              <span>02</span>
+            </div>
+            <div class="timeline">
+              <div class="item">
+                <div class="item-header">
+                  <h4>University of California, Los Angeles</h4>
+                  <time>2025 - 2027</time>
+                </div>
+                <p>Master's in Applied Statistics and Data Science · Los Angeles, CA</p>
+                <ul>
+                  <li>Focused on regression, mathematical statistics, SQL/data management, ETL workflows, visualization, and stakeholder-ready statistical communication.</li>
+                </ul>
+              </div>
+              <div class="item">
+                <div class="item-header">
+                  <h4>University of West London</h4>
+                  <time>2019 - 2022</time>
+                </div>
+                <p>BA Accounting and Finance, First Class Honours · London, UK</p>
+                <ul>
+                  <li>Studied quantitative methods, financial modeling, corporate finance, IFRS reporting, management accounting, and auditing.</li>
+                </ul>
+              </div>
+            </div>
+          </section>
+
+          <section class="content-block" aria-labelledby="jiawen-experience">
+            <div class="section-label">
+              <h3 id="jiawen-experience">Experience</h3>
+              <span>03</span>
+            </div>
+            <div class="timeline">
+              <div class="item">
+                <div class="item-header">
+                  <h4>Chief Financial Officer · Chongqing Winter Orange Technology Education</h4>
+                  <time>2022 - Present</time>
+                </div>
+                <ul>
+                  <li>Co-founded an edtech startup serving 2,000+ users and led analytics initiatives across course matching, resource allocation, and tax optimization.</li>
+                  <li>Built a Random Forest course recommendation model reaching 89% accuracy and F1 = 0.86, reducing mismatched enrollments by 34%.</li>
+                  <li>Developed a Lasso and Monte Carlo tax-scenario framework that delivered ¥235,000 in annual savings.</li>
+                  <li>Designed a Power BI dashboard for retention, unit economics, and CAC/LTV analysis, supporting an 18% profitability lift over two quarters.</li>
+                </ul>
+              </div>
+              <div class="item">
+                <div class="item-header">
+                  <h4>Investment Banking Analyst · Everbright Securities</h4>
+                  <time>2023 - 2025</time>
+                </div>
+                <ul>
+                  <li>Led IPO review responses on working capital and accounts receivable, using Python to analyze multi-period financial data, customer concentration, and aging structure.</li>
+                  <li>Reviewed related-party and other receivables representing approximately 11% of total assets, supporting remediation and regulatory documentation.</li>
+                  <li>Analyzed recoverability of approximately RMB 50 million in deferred tax assets and supported disclosure and risk mitigation strategies.</li>
+                </ul>
+              </div>
+              <div class="item">
+                <div class="item-header">
+                  <h4>Assurance Staff · Ernst & Young</h4>
+                  <time>2022 - 2023</time>
+                </div>
+                <ul>
+                  <li>Supported a sizeable IPO audit, including bank confirmations across 124 subgroups and over 1,000 letters.</li>
+                  <li>Built a VBA tool for book-balance alignment and performed substantive testing across journal entries, accounts receivable, and revenue.</li>
+                  <li>Assessed financial statement risks, internal controls, cash-flow changes, and asset impairment calculations.</li>
+                </ul>
+              </div>
+              <div class="item">
+                <div class="item-header">
+                  <h4>Business Banking Intern · Bank of China</h4>
+                  <time>2021</time>
+                </div>
+                <ul>
+                  <li>Supported loan and audit analysis through company data collection, allowance assessment, and financial statement interpretation.</li>
+                </ul>
+              </div>
+            </div>
+          </section>
+
+          <section class="content-block" aria-labelledby="jiawen-projects">
+            <div class="section-label">
+              <h3 id="jiawen-projects">Projects</h3>
+              <span>04</span>
+            </div>
+            <div class="item">
+              <div class="item-header">
+                <h4>AI-Assisted MRI Classification for Insurance Decision Support</h4>
+                <time>Deep Learning</time>
+              </div>
+              <ul>
+                <li>Designed a pipeline to classify 7,021 brain MRI images into four tumor categories for insurance claims triage and medical-review prioritization.</li>
+                <li>Compared a baseline CNN with a fine-tuned EfficientNetB0 transfer learning model using augmentation, dropout, batch normalization, and early stopping.</li>
+                <li>Improved accuracy from 70% to 85% and AUC from 0.79 to 0.95, recommending the model as governed decision support with clinician review.</li>
+              </ul>
+            </div>
+          </section>
+
+          <section class="content-block" aria-labelledby="jiawen-skills">
+            <div class="section-label">
+              <h3 id="jiawen-skills">Selected Skills</h3>
+              <span>05</span>
+            </div>
+            <div class="skills">
+              <span>Python</span>
+              <span>R</span>
+              <span>SQL</span>
+              <span>Power BI</span>
+              <span>Machine Learning</span>
+              <span>Statistical Modeling</span>
+              <span>Financial Analysis</span>
+              <span>IPO Review</span>
+              <span>VBA</span>
+            </div>
+          </section>
+
+          <section class="content-block" aria-labelledby="jiawen-blog">
+            <div class="section-label">
+              <h3 id="jiawen-blog">Blog</h3>
+              <span>06</span>
+            </div>
+            <div class="journal-grid">
+              <div class="journal-slot">
+                <strong>Research Notes</strong>
+                <p>预留给统计建模、金融分析、数据产品复盘等文章。</p>
+              </div>
+              <div class="journal-slot">
+                <strong>Field Essays</strong>
+                <p>预留给实习、项目、创业和职业观察。</p>
+              </div>
+            </div>
+          </section>
+
+          <section class="content-block" aria-labelledby="jiawen-vlog">
+            <div class="section-label">
+              <h3 id="jiawen-vlog">Vlog</h3>
+              <span>07</span>
+            </div>
+            <div class="journal-grid">
+              <div class="journal-slot">
+                <strong>Study Diary</strong>
+                <p>预留视频：学习、校园、项目开发过程。</p>
+              </div>
+              <div class="journal-slot">
+                <strong>Career Log</strong>
+                <p>预留视频：行业分享、工作流、个人成长记录。</p>
+              </div>
+            </div>
+          </section>
+        </article>
+
+        <article class="profile" id="friend">
+          <header class="profile-head">
+            <div>
+              <h2>Friend Name</h2>
+              <p class="role">Resume pending · Same layout reserved</p>
+            </div>
+            <span class="status">Pending</span>
+          </header>
+
+          <section class="content-block" aria-labelledby="friend-profile">
+            <div class="section-label">
+              <h3 id="friend-profile">Profile</h3>
+              <span>01</span>
+            </div>
+            <div class="placeholder">
+              <strong>等待朋友简历</strong>
+              <p>这里会放她的个人简介，保持与左侧相同的字体层级、间距和内容结构。</p>
+            </div>
+          </section>
+
+          <section class="content-block" aria-labelledby="friend-education">
+            <div class="section-label">
+              <h3 id="friend-education">Education</h3>
+              <span>02</span>
+            </div>
+            <div class="placeholder">
+              <strong>Education Placeholder</strong>
+              <p>学校、专业、时间、课程重点会在这里补充。</p>
+            </div>
+          </section>
+
+          <section class="content-block" aria-labelledby="friend-experience">
+            <div class="section-label">
+              <h3 id="friend-experience">Experience</h3>
+              <span>03</span>
+            </div>
+            <div class="placeholder">
+              <strong>Experience Placeholder</strong>
+              <p>工作经历、实习经历、关键成果会按时间线放入。</p>
+            </div>
+          </section>
+
+          <section class="content-block" aria-labelledby="friend-projects">
+            <div class="section-label">
+              <h3 id="friend-projects">Projects</h3>
+              <span>04</span>
+            </div>
+            <div class="placeholder">
+              <strong>Project Placeholder</strong>
+              <p>项目名称、方法、数据、结果和影响会在这里展开。</p>
+            </div>
+          </section>
+
+          <section class="content-block" aria-labelledby="friend-skills">
+            <div class="section-label">
+              <h3 id="friend-skills">Selected Skills</h3>
+              <span>05</span>
+            </div>
+            <div class="skills">
+              <span>Skill 01</span>
+              <span>Skill 02</span>
+              <span>Skill 03</span>
+              <span>Skill 04</span>
+            </div>
+          </section>
+
+          <section class="content-block" aria-labelledby="friend-blog">
+            <div class="section-label">
+              <h3 id="friend-blog">Blog</h3>
+              <span>06</span>
+            </div>
+            <div class="journal-grid">
+              <div class="journal-slot">
+                <strong>Notes</strong>
+                <p>预留给她的个人文章、研究笔记或生活记录。</p>
+              </div>
+              <div class="journal-slot">
+                <strong>Essays</strong>
+                <p>预留给更长篇的观点、项目复盘或作品说明。</p>
+              </div>
+            </div>
+          </section>
+
+          <section class="content-block" aria-labelledby="friend-vlog">
+            <div class="section-label">
+              <h3 id="friend-vlog">Vlog</h3>
+              <span>07</span>
+            </div>
+            <div class="journal-grid">
+              <div class="journal-slot">
+                <strong>Video Notes</strong>
+                <p>预留视频栏目，可以放嵌入链接或缩略信息。</p>
+              </div>
+              <div class="journal-slot">
+                <strong>Series</strong>
+                <p>预留系列视频入口，后续可扩展为独立详情页。</p>
+              </div>
+            </div>
+          </section>
+        </article>
+      </section>
+    </main>
+
+    <footer>
+      <div class="shell">Designed as a shared two-person personal archive. No profile images are used in the introduction.</div>
+    </footer>
+  </body>
+</html>
